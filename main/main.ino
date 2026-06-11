@@ -3,9 +3,9 @@
 
 //#include <Servo.h>
 
-#include "ServoMotor.cpp"
-#include "LED.cpp"
-#include "Buzzer.cpp"
+#include "ServoMotor.h"
+#include "LED.h"
+#include "Buzzer.h"
 // #include "LCD.cpp"
 
 Buzzer alarmBuzzer(2);
@@ -22,7 +22,6 @@ void setup() {
   alarmBuzzer.begin();
   redLED.begin();
   feederServoMotor.begin();
-
 
 }
 
