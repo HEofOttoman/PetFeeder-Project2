@@ -6,16 +6,18 @@
 class Buzzer {
 	private:
 		int pin;
-		int melody[];
+		// int melody[];
 		
 	public:
 		Buzzer(int buzzerPin); // Servo motor
 		
 		void begin(); 
 		
+		void beep();
+		
+		void stopBuzzer();
+		
 		void playMelody(); 
 		
-		//int getAngle(); 
-    // Returns current angle as integer
 };
 #endif

@@ -6,11 +6,12 @@
 #include "ServoMotor.h"
 #include "LED.h"
 #include "Buzzer.h"
-// #include "LCD.cpp"
+#include "LCD.h"
 
 Buzzer alarmBuzzer(2);
 LED redLED(3);
 ServoMotor feederServoMotor(4);
+LCD DisplayLCD(0x27, 16, 2);
 
 RTC_DS1307 rtc;
 DateTime feedingTime;
@@ -22,6 +23,7 @@ void setup() {
   alarmBuzzer.begin();
   redLED.begin();
   feederServoMotor.begin();
+  DisplayLCD.begin();
 
 }
 
@@ -44,5 +46,6 @@ void loop() {
 }
 
 void feedAnimal() {
+  alarmBuzzer.playMelody();
   feederServoMotor.setAngle(90);
 }
