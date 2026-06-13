@@ -19,6 +19,11 @@ void LCD::displayText(char* text) {
 	lcd.print(text);
 }
 
+void LCD::printRowTwo(char* text) { // Specifically for the LCD feeder alarm.
+	lcd.setCursor(0, 1);
+	lcd.print(text);
+}
+
 void LCD::clear() {
 	lcd.clear();
 	

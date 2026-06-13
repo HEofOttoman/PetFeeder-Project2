@@ -20,6 +20,8 @@ class LCD {
 
     void displayText(char* text);
 
+    void printRowTwo(char* text);
+
     void clear();
 };
 #endif
