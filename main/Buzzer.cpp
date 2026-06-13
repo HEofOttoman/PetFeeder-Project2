@@ -22,7 +22,7 @@ void Buzzer::stopBuzzer() {
 void Buzzer::playMelody() {
 	int melody[] = { 415, 370, 330, 247, 330, 415, 370, 247 };
 	int durations[] = { 4, 8, 8, 4, 4, 4, 4, 4 };
-	digitalWrite(pin, HIGH);
+	// digitalWrite(pin, HIGH);
 
 	for (int i = 0; i < 8; i++) {
 		tone(pin, melody[i], durations[i]);

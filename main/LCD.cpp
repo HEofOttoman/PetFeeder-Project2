@@ -11,7 +11,7 @@ LCD::LCD(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows): lcd(lcd_Addr, lc
 void LCD::begin() {
   lcd.init();
   lcd.backlight();
-	// lcd.begin(16, 2);
+	lcd.begin(16, 2);
 }
 
 void LCD::displayText(char* text) {

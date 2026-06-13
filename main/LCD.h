@@ -18,6 +18,6 @@ class LCD {
 
     void begin();
 
-    void displayText(char*);
+    void displayText(char* text);
 };
 #endif
