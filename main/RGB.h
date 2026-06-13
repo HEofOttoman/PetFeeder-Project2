@@ -17,6 +17,8 @@ class RGB {
 		void begin(); 
 		
 		void enable(bool redEnable, bool greenEnable, bool blueEnable); 
+
+		void disable();
 		
 		int getState(); // Returns enabled as integer
 };

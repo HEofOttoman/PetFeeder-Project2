@@ -13,7 +13,7 @@ Buzzer alarmBuzzer(2);
 ServoMotor feederServoMotor(3);
 
 // LED redLED(3);
-// RGB light(4, 5, 6);
+RGB light(4, 5, 6);
 
 LCD DisplayLCD(0x27, 16, 2);
 
@@ -43,15 +43,16 @@ void setup() {
   // redLED.begin();
   feederServoMotor.begin();
   DisplayLCD.begin();
-  // light.begin();
+  light.begin();
   DisplayLCD.displayText("Booting success!");
-  // light.enable(true, false, true);
+  light.enable(true, false, true); // green light
   
-  feederServoMotor.setAngle(180);
+  feederServoMotor.setAngle(55);
   alarmBuzzer.beep();
 
   delay(1000);
   DisplayLCD.clear();
+  light.disable(); // Turns off the green
 
 }
 
@@ -63,31 +64,38 @@ void loop() {
 	Serial.print(':');
 	Serial.print(now.minute());
 	Serial.print(':');
-	Serial.print(now.second());
-	Serial.print(':');
-	Serial.print(now.minute());
-	Serial.print(':');
 	Serial.println(now.second());
 
-  DisplayLCD.displayText(now.hour());
-  DisplayLCD.displayText(':');
-	DisplayLCD.displayText(now.minute());
-	DisplayLCD.displayText(':');
-	DisplayLCD.displayText(now.second());
-	DisplayLCD.displayText(':');
-	DisplayLCD.displayText(now.minute());
-	DisplayLCD.displayText(':');
-	DisplayLCD.displayText(now.second());
+  // 1. Create a buffer string with the exact format template you want
+  char timeBuffer[] = "hh:mm:ss"; 
+  
+  // 2. Pass the buffer to toString() to fill it with numbers
+  now.toString(timeBuffer); 
+  
+  DisplayLCD.displayText(timeBuffer);
+  // DisplayLCD.displayText(now.hour());
+  // DisplayLCD.displayText(':');
+	// DisplayLCD.displayText(now.minute());
+	// DisplayLCD.displayText(':');
+	// DisplayLCD.displayText(now.second());
 
-  if (now == feedingTime) {
+  if (now == feedingTime) { // <- this is bad paparently
     feedAnimal();
   }
 
+  
+
   delay(1000);
+  DisplayLCD.clear();
+
 
 }
 
 void feedAnimal() {
   alarmBuzzer.playMelody();
-  feederServoMotor.setAngle(90);
+  light.enable(false, true, false);
+  DisplayLCD.displayText("FEEDING TIME");
+  feederServoMotor.setAngle(100);
+  delay(400);
+  feederServoMotor.setAngle(55); // 55 is the default angle
 }
