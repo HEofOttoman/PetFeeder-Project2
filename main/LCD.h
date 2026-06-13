@@ -19,5 +19,7 @@ class LCD {
     void begin();
 
     void displayText(char* text);
+
+    void clear();
 };
 #endif

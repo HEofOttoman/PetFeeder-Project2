@@ -18,3 +18,8 @@ void LCD::displayText(char* text) {
 	lcd.setCursor(0, 0);
 	lcd.print(text);
 }
+
+void LCD::clear() {
+	lcd.clear();
+	
+}

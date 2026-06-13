@@ -18,23 +18,40 @@ ServoMotor feederServoMotor(3);
 LCD DisplayLCD(0x27, 16, 2);
 
 RTC_DS1307 rtc;
-// DateTime feedingTime;
+DateTime feedingTime;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  Serial.println("System Booting");
+  for(int i = 0; i< 10; i++){
+    Serial.print(".");
+    delay(400);
+  }
+
+  // rtc.begin();
+  if (!rtc.begin()){
+    Serial.println("rtc failed init, please restart");
+    while(1);
+  }
+  else {
+    Serial.println("rtc BOOTED FINALLY!!!");
+  }
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   
-  rtc.begin();
   alarmBuzzer.begin();
   // redLED.begin();
   feederServoMotor.begin();
   DisplayLCD.begin();
   // light.begin();
-  DisplayLCD.displayText("hi");
+  DisplayLCD.displayText("Booting success!");
   // light.enable(true, false, true);
   
   feederServoMotor.setAngle(180);
   alarmBuzzer.beep();
+
+  delay(1000);
+  DisplayLCD.clear();
 
 }
 
@@ -47,15 +64,24 @@ void loop() {
 	Serial.print(now.minute());
 	Serial.print(':');
 	Serial.print(now.second());
-  // DisplayLCD.display(now.hour());
-	// DisplayLCD.lcd.print(':');
+	Serial.print(':');
 	Serial.print(now.minute());
 	Serial.print(':');
-	Serial.print(now.second());
+	Serial.println(now.second());
 
-  // if (now == feedingTime) {
-  //   feedAnimal();
-  // }
+  DisplayLCD.displayText(now.hour());
+  DisplayLCD.displayText(':');
+	DisplayLCD.displayText(now.minute());
+	DisplayLCD.displayText(':');
+	DisplayLCD.displayText(now.second());
+	DisplayLCD.displayText(':');
+	DisplayLCD.displayText(now.minute());
+	DisplayLCD.displayText(':');
+	DisplayLCD.displayText(now.second());
+
+  if (now == feedingTime) {
+    feedAnimal();
+  }
 
   delay(1000);
 
